@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 I am Really Sorry Bestie P 🌸</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --pink: #ff9eb5;
+            --cream: #fff5f7;
+            --text: #5a2e3b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--cream), #ffe5ec);
+            min-height: 100vh;
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header {
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .friendship-meter {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .emoji-button {
+            font-size: 4rem;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.3s;
+            margin: 2rem 0;
+        }
+
+        .message-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .smiley-box {
+            font-size: 5rem;
+            margin: 1rem auto;
+            animation: pulse 2s infinite;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #ffe5ec;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--pink);
+            transition: width 0.5s ease;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes hop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .hop { animation: hop 0.3s ease; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>😊 I am Really Sorry 😊</h1>
+            <p>For my Bestie P</p>
+        </div>
+
+        <div class="friendship-meter">
+            <div class="progress-bar">
+                <div class="progress" style="width: 0%"></div>
+            </div>
+            <p>Sorry Count: <span id="counter">0</span>/50</p>
+        </div>
+
+        <div class="emoji-button" onclick="showNextApology()">😊</div>
+
+        <div class="message-box" id="messageBox">
+            Click the above  emoji to start!
+        </div>
+
+        <div class="smiley-box" id="smileyBox">😊</div>
+    </div>
+
+    <script>
+        const apologies = [
+            {
+                emoji: "😊",
+                message: "1. I'm really sorry aapke saath aise behave karne k liye"
+            },
+            {
+                emoji: "🌟😇",
+                message: "2. Sorry for the fuss, you're always right"
+            },
+            {
+                emoji: "🤞😜",
+                message: "3. My bad bestie! I'll trade you 10 bad jokes"
+            },
+            {
+                emoji: "😊☀️",
+                message: "4. Sorry for my hangry face - you deserve sunshine"
+            },
+            {
+                emoji: "🍕🤗",
+                message: "5. Oops! Let's hug it out with pizza?"
+            },
+            {
+                emoji: "🍿😊",
+                message: "6. Your friendship is my favorite Netflix show"
+            },
+            {
+                emoji: "🎧😊",
+                message: "7. Forgive me? I'll listen to your rant for 3 hours straight!"
+            },
+            {
+                emoji: "😎✨",
+                message: "8. I'm sorry I forgot to be awesome"
+            },
+            {
+                emoji: "😍😊",
+                message: "9. My bad for eye-rolls, here's heart-eyes"
+            },
+            {
+                emoji: "🍦😋",
+                message: "10. Let's make up with ice cream! My treat"
+            },
+            {
+                emoji: "🍪😊",
+                message: "11. Sorry I was salty, let's be sweet"
+            },
+            {
+                emoji: "🦙🐨",
+                message: "12. My bad for being a buddhu"
+            },
+            {
+                emoji: "🐿️😄",
+                message: "13. Sorry I squirrel-ed up"
+            },
+            {
+                emoji: "😊😊",
+                message: "14. I am sorry P"
+            },
+            {
+                emoji: "❄️😌",
+                message: "15. Sorry P for being a melted popsicle"
+            },
+            {
+                emoji: "🌮😁",
+                message: "16. Let's taco-bout forgiveness!"
+            },
+            {
+                emoji: "🐨😊",
+                message: "17. I'm koala-fied sorry"
+            },
+            {
+                emoji: "🥑😊",
+                message: "18. Sorry again P"
+            },
+            {
+                emoji: "🧀🍕",
+                message: "19. Sorry I was extra cheese"
+            },
+            {
+                emoji: "😊",
+                message: "20. Sorry again P"
+            },
+            {
+                emoji: "😊",
+                message: "21. Really sorry P"
+            },
+            {
+                emoji: "📡😄",
+                message: "22. Sorry I forgot our telepathy"
+            },
+            {
+                emoji: "✨😊",
+                message: "23. You deserve all the sparkles Sorry again P"
+            },
+            {
+                emoji: "😊😎",
+                message: "24. Sorry P"
+            },
+            {
+                emoji: "😊😊",
+                message: "25. Sorry P"
+            },
+            {
+                emoji: "🖍️🎨",
+                message: "26. Let's color better memories!"
+            },
+            {
+                emoji: "📖😊",
+                message: "27. Next chapter: bestie adventures!"
+            },
+            {
+                emoji: "😊",
+                message: "28. Maaf kardo"
+            },
+            {
+                emoji: "😊",
+                message: "29. Galti meri h"
+            },
+            {
+                emoji: "😊😄",
+                message: "30. It is my fault sorry"
+            },
+            {
+                emoji: "🫧😌",
+                message: "31. Sorry for bursting your calm"
+            },
+            {
+                emoji: "😊",
+                message: "32. Sorry"
+            },
+            {
+                emoji: "😊",
+                message: "33. Sorry P"
+            },
+            {
+                emoji: "🦖😊",
+                message: "34. Let's t-rex past this!"
+            },
+            {
+                emoji: "📱😊",
+                message: "35. Sorry maine ignore kiya"
+            },
+            {
+                emoji: "😊",
+                message: "36. Meri galti h sorry"
+            },
+            {
+                emoji: "😊",
+                message: "37. Plug me back in!"
+            },
+            {
+                emoji: "😊",
+                message: "38. Sorry again"
+            },
+            {
+                emoji: "😊",
+                message: "39. So Sorry "
+            },
+            {
+                emoji: "😊",
+                message: "40. Sorry"
+            },
+            {
+                emoji: "😊",
+                message: "41. Dil se Sorry"
+            },
+            {
+                emoji: "📿😊",
+                message: "42. Friendship bracelet for you!"
+            },
+            {
+                emoji: "🎤😆",
+                message: "43. Let's karaoke past this!"
+            },
+            {
+                emoji: "😊",
+                message: "44. Sorry P"
+            },
+            {
+                emoji: "🙏😄",
+                message: "45. High-five do-over!"
+            },
+            {
+                emoji: "😊",
+                message: "46. Here's a fresh smile with a Sorry!"
+            },
+            {
+                emoji: "😊",
+                message: "47. Sorry Again!"
+            },
+            {
+                emoji: "☕😊",
+                message: "48. Coffee aapke liye ab to maaf kardo!"
+            },
+            {
+                emoji: "😊",
+                message: "49. Sorry again"
+            },
+            {
+                emoji: "😊",
+                message: "50. Sorry sorry ab to maaf kardo"
+            }
+        ];
+
+        let currentApology = 0;
+
+        function showNextApology() {
+            if(currentApology >= 50) return;
+
+            const apology = apologies[currentApology];
+            const emojiButton = document.querySelector('.emoji-button');
+            
+            // Update elements
+            emojiButton.textContent = apology.emoji;
+            document.querySelector('.progress').style.width = `${(currentApology + 1) * 2}%`;
+            document.getElementById('counter').textContent = currentApology + 1;
+            document.getElementById('messageBox').textContent = apology.message;
+            document.getElementById('smileyBox').textContent = apology.emoji;
+
+            // Add animations
+            document.getElementById('messageBox').classList.add('hop');
+            document.getElementById('smileyBox').classList.add('hop');
+
+            // Confetti effect
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff9eb5', '#ffffff', '#ffd6e5']
+            });
+
+            // Reset animations
+            setTimeout(() => {
+                document.getElementById('messageBox').classList.remove('hop');
+                document.getElementById('smileyBox').classList.remove('hop');
+            }, 300);
+
+            currentApology++;
+
+            // Final message
+            if(currentApology === 50) {
+                confetti({
+                    particleCount: 500,
+                    spread: 200,
+                    origin: { y: 0.6 }
+                });
+                emojiButton.style.animation = 'none';
+                emojiButton.textContent = '🎉';
+                document.getElementById('smileyBox').textContent = '😊🤗🎉';
+            }
+        }
+    </script>
+</body>
+</html>
